@@ -1,5 +1,10 @@
 class Set:
     i=[]  # list of touples
+
+    # constructor
+    def __init__ (self, intervals):
+        self.i = intervals
+
     def fix (self): 
         if (len (self.i) < 2): return 
         i = self.i
@@ -99,49 +104,45 @@ class Set:
 
 #Unit tests
 def unit_test ():
-    s = Set ()
-    s.i = [(1,2), (2,3), (4,5)]
+    s = Set ([(1,2), (2,3), (4,5)])
     s.fix ()
     print s.i 
     assert s.i == [(1,3), (4,5)]
 
-    s.i = [(1,2), (2,3) , (3,4), (5,6), (6,7)]
+    s = Set ([(1,2), (2,3) , (3,4), (5,6), (6,7)])
     s.fix()
     print s.i
     assert s.i == [(1,4), (5,7)]
 
-    s.i = [(2,4), (1,5)]
+    s = Set ([(2,4), (1,5)])
     s.fix ()
     print s.i
     assert s.i == [(1,5)]
      
-    s.i = [(1,5), (2, 5), (2,8)]
+    s = Set([(1,5), (2, 5), (2,8)])
     s.fix ()
     print s.i
     assert s.i == [(1,8)]
     
-    s.i = [(1, 3), (5, 7)]
-    b = Set ()
-    b.i = [(6, 7)]
+    s = Set([(1, 3), (5, 7)])
+    b = Set([(6, 7)])
     s.diff (b)
     print s.i
     assert s.i == [(1,3),(5,6)]
 
-    s.i = [(1, 3), (5, 7),(9,14)]
-    b = Set ()
-    b.i = [(6, 7),(10,12)]
+    s = Set([(1, 3), (5, 7),(9,14)])
+    b = Set([(6, 7),(10,12)])
     s.diff (b)
     print s.i
     assert s.i == [(1,3),(5,6),(9,10),(12,14)]
 
-    s.i = [(1, 3), (5, 7)]
-    b = Set ()
-    b.i = [(1, 3), (5, 7)]
+    s = Set([(1, 3), (5, 7)])
+    b = Set([(1, 3), (5, 7)])
     s.diff (b)
     print s.i
     assert s.i == []
 
-    s.i = []
+    s = Set([])
     s.checkempty ()
     print s.i
     assert s.i == []
