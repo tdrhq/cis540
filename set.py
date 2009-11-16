@@ -147,6 +147,17 @@ def unit_test ():
     print s.i
     assert s.i == []
 
+    s = Set ([(1,4)]);
+    b = Set ([(2,4)]);
+    s.diff (b);
+    print s.i
+    assert s.i == [(1,2)]
+
+    s = Set ([(1,5)])
+    b = Set ([(1,2), (4,5)])
+    s.diff (b)
+    print s.i
+    assert s.i == [(2,4)]
 #    s.i = [(1, 2), (6, 7)]
  #   b = Set ()
   #  b.i = [(1, 3), (5, 7)]
@@ -154,3 +165,7 @@ def unit_test ():
     #print s.i
 
 
+
+# this is temporary! so that you can call "pythong set.py" on the command
+# line and the unit tests always get called.
+unit_test ();
