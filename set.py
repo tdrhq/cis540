@@ -1,5 +1,5 @@
 class Set:
-    i=[]
+    i=[]  # list of touples
     def fix (self): 
         if (len (self.i) < 2): return 
         i = self.i
