@@ -97,7 +97,7 @@ class Set:
         print self.i
         self.checkempty ()
 
-
+#Unit tests
 def unit_test ():
     s = Set ()
     s.i = [(1,2), (2,3), (4,5)]
