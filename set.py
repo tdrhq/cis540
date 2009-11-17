@@ -41,69 +41,66 @@ class Set:
         self.i += b.i
         self.fix ()
 
-    def diff(self,b):
+    def complement (self):
         result = []
         i = self.i
-        cura = i[0]
-        curb = b.i[0]
-
-        while ( len (i)):
-
-            if (cura[0]>curb[1]):
-                b.i = b.i[1:]
-                if (len(b.i) > 0):
-                    curb = b.i[0]    
-                else:
-                    result.append (cura)
-                    i = i[1:]
-                    if (len (i)>=1):
-                        cura=i[0]
-
-            if ((curb[0] > cura[0]) & (curb[1] < cura[1])):
-                curat = (cura[0], curb[0])
-                result.append (curat)
-                cura = (curb[1],cura[1])
-                result.append (cura)
-                
-                b.i = b.i[1:]
-                if (len(b.i) > 0):
-                    curb = b.i[0]    
-                i = i[1:]
-                if (len (i)>=1):
-                        cura=i[0]
+        cur = i[0]
+        curt = (0,cur[0])
+        result.append (curt)
+        k = cur [1]
         
-            else:
-                if (cura[1]<curb[0]):
-                    result.append (cura)
-                
-                if ((cura [1] >= curb[0])&(cura[0]<=curb[0])):
-                    cura = (cura[0], curb[0])
-                    result.append (cura)
-                    
-                if ((cura [0] <= curb[1])&(cura[1]>=curb[1])):
-                    cura = (curb[1], cura[1])
-                    result.append (cura)
+        while (len(i) > 1):
+            i= i[1:]
+            cur = i[0]
+            curt = (k, cur[0])
+            result.append (curt)
+            k = cur [1]
 
-                i = i[1:]
-                if (len (i)>=1):
-                        cura=i[0]
+        curt = (k, 1000)
+        result.append (curt)
         self.i = result
-        self.empty ()                
+        self.fix()
+        
+    def diff(self,b):
+        self.complement ()
+        self.union(b)
+        self.complement ()
+        self.empty()
                 
     def checkempty (self):
         assert self.i == []        
 
-    def subset (self):
-        print self.i
-        print b.i
+    def subset (self,b):
         self.union (b)
-        print self.i
         self.diff (b)
-        print self.i
         self.checkempty ()
 
 #Unit tests
 def unit_test ():
+    s = Set([(1, 3), (5, 7)])
+    b = Set([(1, 7)])
+    s.subset (b)
+    print s.i
+    assert s.i == []
+
+    s = Set ([(1,2), (3,6)])
+    s.complement()
+    print s.i
+    assert s.i == [(0,1),(2,3),(6,1000)]
+
+    s = Set([(1, 3), (5, 7),(9,14)])
+    b = Set([(6, 7),(10,12)])
+    s.diff (b)
+    print s.i
+    assert s.i == [(1,3),(5,6),(9,10),(12,14)]
+
+
+    s = Set([(1, 3), (5, 9),(11,14)])
+    b = Set([(6, 7),(8,9),(10,12)])
+    s.diff (b)
+    print s.i
+    assert s.i == [(1,3),(5,6),(7,8),(12,14)]
+
     s = Set ([(1,2), (2,3), (4,5)])
     s.fix ()
     print s.i 
@@ -130,11 +127,6 @@ def unit_test ():
     print s.i
     assert s.i == [(1,3),(5,6)]
 
-    s = Set([(1, 3), (5, 7),(9,14)])
-    b = Set([(6, 7),(10,12)])
-    s.diff (b)
-    print s.i
-    assert s.i == [(1,3),(5,6),(9,10),(12,14)]
 
     s = Set([(1, 3), (5, 7)])
     b = Set([(1, 3), (5, 7)])
@@ -158,13 +150,11 @@ def unit_test ():
     s.diff (b)
     print s.i
     assert s.i == [(2,4)]
-#    s.i = [(1, 2), (6, 7)]
- #   b = Set ()
-  #  b.i = [(1, 3), (5, 7)]
-   # s.subset (b)
-    #print s.i
-
-
+    s = Set ([(2,8),(9,10)])
+    b = Set ([(1,3), (4,5), (6,7)])
+    s.diff (b)
+    print s.i
+    assert s.i == [(3,4),(5,6),(7,8),(9,10)]
 
 # this is temporary! so that you can call "pythong set.py" on the command
 # line and the unit tests always get called.
