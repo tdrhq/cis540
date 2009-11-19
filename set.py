@@ -9,7 +9,18 @@ class Set:
     def __init__ (self, intervals):
         self.i = intervals
 
+    def product (self, scalar): # product with scalar
+        self.i = map (lambda (x,y): (scalar*x, scalar*y), self.i);
+        self.fix ()
+
+    def square (self): # product with scalar
+        self.i = map (lambda (x,y): (x*x, y*y) if (x*y >= 0) else (0, max(x*x, y*y)), self.i);
+        self.fix ()
+
     def fix (self): 
+        # fix ordering in pairs first
+        self.i = map (lambda (x,y): (min (x,y), max(x,y)), self.i);
+
         if (len (self.i) < 2): return 
         i = self.i
         i.sort()
@@ -184,6 +195,28 @@ def unit_test ():
     print s.i
     assert s.i == [(3,4),(5,6),(7,8),(9,10)]
 
+    # test product
+    s = Set ([(1,5), (6,10)])
+    s.product (2)
+    assert s.i == [(2,10), (12, 20)]
+
+    s.product (0)
+    assert s.i == [(0,0)]
+
+    ss = s = Set ([(-10, -9), (-1,2), (3,4)])
+    s.product (-1)
+    assert s.i == [(-4, -3), (-2, 1), (9, 10)]
+
+    # test square
+    s = Set ([(1,5), (6,10)])
+    s.square ()
+    assert s.i == [(1,25), (36, 100)]
+
+    s = Set ([(-10, -9), (-1,1), (3,4)])
+    s.square ()
+    print s.i
+    assert s.i == [(0,1), (9,16), (81, 100)] 
+             
 # this is temporary! so that you can call "pythong set.py" on the command
 # line and the unit tests always get called.
 unit_test ();
