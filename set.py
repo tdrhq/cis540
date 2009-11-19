@@ -9,6 +9,10 @@ class Set:
     def __init__ (self, intervals):
         self.i = intervals
 
+    def product (self, scalar): # product with scalar
+        self.i = map (lambda (x,y): (scalar*x, scalar*y), self.i);
+        self.fix ()
+
     def fix (self): 
         if (len (self.i) < 2): return 
         i = self.i
@@ -162,6 +166,14 @@ def unit_test ():
     s.diff (b)
     print s.i
     assert s.i == [(3,4),(5,6),(7,8),(9,10)]
+
+    # test product
+    s = Set ([(1,5), (6,10)])
+    s.product (2)
+    assert s.i == [(2,10), (12, 20)]
+
+    s.product (0)
+    assert s.i == [(0,0)]
 
 # this is temporary! so that you can call "pythong set.py" on the command
 # line and the unit tests always get called.
