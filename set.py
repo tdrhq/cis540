@@ -79,8 +79,29 @@ class Set:
         self.diff (b)
         self.checkempty ()
 
+    def sumofset (self, b):
+        result = []
+        i=self.i
+        cura = i[0];
+        curb = b.i[0]
+
+        for cura in i:
+            for curb in b.i:
+                temp = (cura[0]+curb[0], cura[1]+curb[1])
+                result.append(temp)
+            
+        self.i = result
+        self.fix() 
+
 #Unit tests
 def unit_test ():
+
+    s = Set([(1, 3), (5, 9)])
+    b = Set([(1, 2),(3,4)])
+    s.sumofset (b)
+    print s.i
+    assert s.i == [(2,13)]
+
     s = Set([(1, 3), (5, 7)])
     b = Set([(1, 7)])
     s.subset (b)
