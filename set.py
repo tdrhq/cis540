@@ -1,5 +1,9 @@
 class Set:
+
     i=[]  # list of touples
+
+    MinVal = -10000000.0;
+    MaxVal = +10000000.0;
 
     # constructor
     def __init__ (self, intervals):
@@ -45,7 +49,7 @@ class Set:
         result = []
         i = self.i
         cur = i[0]
-        curt = (0,cur[0])
+        curt = (Set.MinVal, cur[0])
         result.append (curt)
         k = cur [1]
         
@@ -56,7 +60,7 @@ class Set:
             result.append (curt)
             k = cur [1]
 
-        curt = (k, 1000)
+        curt = (k, Set.MaxVal)
         result.append (curt)
         self.i = result
         self.fix()
@@ -83,10 +87,13 @@ def unit_test ():
     print s.i
     assert s.i == []
 
-    s = Set ([(1,2), (3,6)])
+    ss = s = Set ([(1,2), (3,6)])
     s.complement()
     print s.i
-    assert s.i == [(0,1),(2,3),(6,1000)]
+    assert s.i == [(Set.MinVal,1),(2,3),(6,Set.MaxVal)]
+
+    s.complement ()
+    assert s == ss;
 
     s = Set([(1, 3), (5, 7),(9,14)])
     b = Set([(6, 7),(10,12)])
