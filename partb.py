@@ -30,6 +30,13 @@ def part5 (s):
 def func (s):
     return part1 (s)
 
+def fixList (i):
+	ret = [[], []]
+	for (x,y) in i:
+		ret[0].append (x)
+		ret[1].append (y)
+	return ret
+
 def bfs (s, N, ff):
     Reach = s
 
@@ -40,15 +47,14 @@ def bfs (s, N, ff):
         
         if (ReachCopy.empty ()):
             break
-
         Reach.union (ReachP)
-        plot(k, Reach)
-        xlabel('k')
-        ylabel('Reach')
-        title('part5')
-        hold()
+
+        plot((k,k), fixList (Reach.i), 'b')
 
     print Reach.i
+    xlabel('k')
+    ylabel('Reach')
+    title('part5')
     show()
 
 ##bfs (Set([(1,2)]), 100, part1)
