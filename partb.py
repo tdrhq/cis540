@@ -37,7 +37,7 @@ def fixList (i):
 		ret[1].append (y)
 	return ret
 
-def bfs (s, N, ff):
+def bfs (s, N, ff, filename):
     Reach = s
 
     for k in range (N):
@@ -55,11 +55,10 @@ def bfs (s, N, ff):
     xlabel('k')
     ylabel('Reach')
     title('part5')
-    show()
+    savefig (filename)
 
-##bfs (Set([(1,2)]), 100, part1)
-##bfs (Set([(1,2)]), 100, part2)
-##bfs (Set([(1,2)]), 100, part3)
-##bfs (Set([(1.8, 1.89)]), 40, part4)
-##bfs (Set([(1.8, 1.9)]), 40, part4)
-bfs (Set([(1,2),(4,5)]), 23, part5)
+bfs (Set([(1,2)]), 100, part1, "part1.png")
+bfs (Set([(1,2)]), 100, part2, "part2.png")
+bfs (Set([(1,2)]), 100, part3, "part3.png")
+bfs (Set([(1.8, 1.89)]), 40, part4, "part4.png")
+bfs (Set([(1.8, 1.9)]), 40, part4, "part5.png")
