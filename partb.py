@@ -54,11 +54,11 @@ def bfs (s, N, ff, filename):
     print Reach.i
     xlabel('k')
     ylabel('Reach')
-    title('part5')
-    savefig (filename)
+    title(filename)
+    savefig (filename + ".png")
 
-bfs (Set([(1,2)]), 100, part1, "part1.png")
-bfs (Set([(1,2)]), 100, part2, "part2.png")
-bfs (Set([(1,2)]), 100, part3, "part3.png")
-bfs (Set([(1.8, 1.89)]), 40, part4, "part4.png")
-bfs (Set([(1.8, 1.9)]), 40, part4, "part5.png")
+bfs (Set([(1,2)]), 100, part1, "part1")
+bfs (Set([(1,2)]), 100, part2, "part2")
+bfs (Set([(1,2)]), 100, part3, "part3")
+bfs (Set([(1.8, 1.89)]), 40, part4, "part4")
+bfs (Set([(1.8, 1.9)]), 40, part4, "part5")
